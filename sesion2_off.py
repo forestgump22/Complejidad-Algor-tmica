@@ -117,27 +117,23 @@ def dijkstra(graph,start):
                     pq.add((newCost,neighbour));
     return dist,prev;
         
-        
-def directedGraph(graph,start):
-    #O(V+E)
+def dagshortestpath(graph,start):
     n=len(graph);
-    ts=topologicalsort(graph);
     visited=[False]*n;
     prev=[None]*n;
+    ts=topologicalSort(graph);
     dist=[float('inf')]*n;
     dist[start]=0;
     for i in range(len(ts)):
-        index=ts[i];
-        if not visited[index]:
-            visited[index]=True;
-            for neighbour,weight in graph[index]:
-                if not visited[neighbour]:
-                    newCost=dist[index]+weight;
-                    if newCost < dist[neighbour]:
-                        dist[neighbour]=newCost;
-                        prev[neighbour]=index;
+        node=ts[i];
+        for neighbour,weight in graph[node]:
+            if not visited[neighbour]:
+                visited[neighbour]=True;
+                newcost=dist[node]+weight;
+                if newcost<dist[neighbour]:
+                    dist[neighbour]=newcost;
+                    prev[neighbour]=node;
     return dist,prev;
-
 def practicedijkstra():
     n=5;
     graph=[[]for _ in range(n)];
