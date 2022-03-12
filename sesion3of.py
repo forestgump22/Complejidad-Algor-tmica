@@ -2,14 +2,14 @@ from collections import defaultdict
 from logging import root
 from platform import node
 
-from sesion2_pruebas import heapdefinitivo
-class IndexedPriorityQueuePreAlphaEditionbyIbrahim:
+from sesion2_pruebas import heapdefinitivofrom collections import defaultdict
+class IndexedPriorityQueueibrahim:
     def __init__(self,comp):
         self.comp=comp;
         self.size=0;
-        self.values=defaultdict(object);
+        self.values=defaultdict();
         self.pm=defaultdict(int);
-        self.im=defaultdict(int);
+        self.im=defaultdict();
         
     def insert(self,ki,value):
         self.values[ki]=value;
@@ -19,14 +19,13 @@ class IndexedPriorityQueuePreAlphaEditionbyIbrahim:
         self.size+=1;
         if self.size<=1:
             return;
-        i = self.size-1;
+        i=self.size-1;
         parent=(i-1)//2;
-        if parent>=0:
-            self.__swim(i,parent);
+        self.swim(i,parent);
     
     def __compa(self,i,j):
-        return (self.comp(self.values[self.im[i]],self.values[self.im[j]]));
-    
+        return (self.comp(self.values[self.im[i]],\
+            self.values[self.im[j]]));
     def contains(self,ki):
         return self.pm.get(ki,-1)!=-1;
     def peekMinKeyIndex(self):
@@ -35,40 +34,40 @@ class IndexedPriorityQueuePreAlphaEditionbyIbrahim:
         minki=self.peekMinKeyIndex();
         self.remove(minki);
         return minki;
-    def __swim(self,i,parent):
-        while self.__compa(i,parent):
+    def swim(self,i,parent):
+        while parent>=0 and self.__compa(i,parent):
             self.__swap(i,parent);
             if parent==0:
                 return;
-            i =parent;
+            i=parent;
             parent=(i-1)//2;
     def __swap(self,i,j):
         self.pm[self.im[i]]=j;
         self.pm[self.im[j]]=i;
         self.im[i],self.im[j]=self.im[j],self.im[i];
-        
+    
     def __sink(self,i):
         while (i<(self.size-1)//2):
             left=i*2+1;
             right=i*2+2;
-            if (self.__compa(left,i) or self.__compa(right,i)):
+            if self.__compa(left,i) or self.__compa(right,i):
                 if self.__compa(right,left):
                     self.__swap(right,i);
                     i=right;
-                else: 
+                else:
                     self.__swap(left,i);
                     i=left;
             else: break;
+        
     def remove(self,ki):
         if self.size==0:
             return None;
         i=self.pm[ki];
-        self.__swap(i,self.size);
+        self.__swap(i,self.size-1);
         self.size-=1;
         self.__sink(i);
         parent=(i-1)//2;
-        if parent>=0:
-            self.__swim(i,parent);
+        self.swim(i,parent);
         self.values[ki]=-1;
         self.pm[ki]=-1;
         self.im[self.size]=-1;
@@ -78,16 +77,14 @@ class IndexedPriorityQueuePreAlphaEditionbyIbrahim:
         self.values[ki]=value;
         self.__sink(i);
         parent=(i-1)//2;
-        if parent>=0:    
-            self.__swim(i,parent);
+        self.swim(i,parent);
     
     def decreaseKey(self,key,value):
         if self.__compa(value,self.values[key]):
             self.values[key]=value;
             parent=(self.pm[key]-1)//2;
-            if parent>=0:
-                self.__swim(self.pm[key],parent);
-
+            self.swim(self.pm[key],parent);
+            
 class HeapDefinitivo:
     def __init__(self,comp):
         self.hp=[];
