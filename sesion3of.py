@@ -24,7 +24,7 @@ class IndexedPriorityQueueibrahim:
         self.swim(i,parent);
     
     def __compa(self,i,j):
-        return (self.comp(self.values[self.im[i]],\
+        return (self.comp(self.values[self.im[i]],
             self.values[self.im[j]]));
     def contains(self,ki):
         return self.pm.get(ki,-1)!=-1;
@@ -32,8 +32,7 @@ class IndexedPriorityQueueibrahim:
         return self.im[0];
     def pollMinKeyIndex(self):
         minki=self.peekMinKeyIndex();
-        self.remove(minki);
-        return minki;
+        return  self.remove(minki);
     def swim(self,i,parent):
         while parent>=0 and self.__compa(i,parent):
             self.__swap(i,parent);
@@ -63,6 +62,7 @@ class IndexedPriorityQueueibrahim:
         if self.size==0:
             return None;
         i=self.pm[ki];
+        removeElement=self.values[ki];
         self.__swap(i,self.size-1);
         self.size-=1;
         self.__sink(i);
@@ -71,6 +71,7 @@ class IndexedPriorityQueueibrahim:
         self.values[ki]=-1;
         self.pm[ki]=-1;
         self.im[self.size]=-1;
+        return removeElement;
     
     def update(self,ki,value):
         i=self.pm[ki];
@@ -79,12 +80,12 @@ class IndexedPriorityQueueibrahim:
         parent=(i-1)//2;
         self.swim(i,parent);
     
+    #
     def decreaseKey(self,key,value):
-        if self.__compa(value,self.values[key]):
+        if self.comp(value,self.values[key]):
             self.values[key]=value;
             parent=(self.pm[key]-1)//2;
             self.swim(self.pm[key],parent);
-            
 class HeapDefinitivo:
     def __init__(self,comp):
         self.hp=[];
