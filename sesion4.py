@@ -1,5 +1,5 @@
 from collections import defaultdict
-class IndexedPriorityQueueibrahim:
+class IndexedPriorityQueue:
     def __init__(self,comp):
         self.comp=comp;
         self.size=0;
@@ -89,7 +89,7 @@ def dijkstraIndexed(graph,start):
     visited=[False]*n;
     dist=[float('inf')]*n;
     dist[start]=0;
-    ipq= IndexedPriorityQueueibrahim(lambda a,b: a<b);
+    ipq= IndexedPriorityQueue(lambda a,b: a<b);
     ipq.insert(start,0);
     
     while ipq.size:
@@ -149,7 +149,7 @@ def prim(graph):
     dist=[float('inf')]*n;
     dist[0]=0;
     #indexed priority queue;
-    ipq=IndexedPriorityQueueibrahim(lambda a,b: a<b);
+    ipq=IndexedPriorityQueue(lambda a,b: a<b);
     ipq.insert(0,0);
     
     while ipq.size:
@@ -201,7 +201,7 @@ def kruskal(graph):
     prev=[None]*n;
     MST=[];
     ds=djset(n);
-    ipq=IndexedPriorityQueueibrahim(lambda a,b: a[0]<b[0]);
+    ipq=IndexedPriorityQueue(lambda a,b: a[0]<b[0]);
     for i in range(n):
         for neighbour,weight in graph[i]:
             if not ipq.contains(neighbour):
